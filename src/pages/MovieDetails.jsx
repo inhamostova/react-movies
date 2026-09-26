@@ -1,3 +1,4 @@
+import { Movie } from 'components/Movie/Movie';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'service/fetchMovies';
@@ -18,7 +19,7 @@ const MovieDetails = () => {
 
   return (
     <div>
-      {`MovieDetails ${movieId}, movie title -- ${movie.title}`}
+      <Movie movie={movie} />
       <Link to="cast">Cast</Link>
       <Link to="reviews">Reviews</Link>
       <Outlet />

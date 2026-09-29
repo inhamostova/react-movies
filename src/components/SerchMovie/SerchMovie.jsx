@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Btn, Form, Input } from './SerchMovie.styled';
+import { FaSearch } from 'react-icons/fa';
 
 export const SearchMovie = ({ onSubmit }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -14,11 +16,12 @@ export const SearchMovie = ({ onSubmit }) => {
   };
 
   return (
-    <form autoComplete="off" onSubmit={handleSubmit}>
-      <label htmlFor="">
-        <input type="text" value={searchQuery} onChange={handleChange} />
-      </label>
-      <button type="submit">Search</button>
-    </form>
+    <Form autoComplete="off" onSubmit={handleSubmit}>
+      <Input type="text" value={searchQuery} onChange={handleChange} />
+
+      <Btn type="submit">
+        <FaSearch />
+      </Btn>
+    </Form>
   );
 };

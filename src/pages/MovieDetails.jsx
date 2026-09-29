@@ -1,7 +1,8 @@
 import { Movie } from 'components/Movie/Movie';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'service/fetchMovies';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -22,11 +23,52 @@ const MovieDetails = () => {
 
   return (
     <div>
-      <Link to={backLink.current}>Go back</Link>
+      <Link
+        to={backLink.current}
+        style={{
+          padding: 10,
+          marginBottom: 12,
+          fontSize: 20,
+          fontWeight: 500,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          cursor: 'pointer',
+        }}
+      >
+        <FaArrowLeft />
+        Go back
+      </Link>
       <Movie movie={movie} />
-      <Link to="cast">Cast</Link>
-      <Link to="reviews">Reviews</Link>
-      <Outlet />
+      <Link
+        style={{
+          padding: 10,
+
+          fontSize: 20,
+          fontWeight: 500,
+
+          cursor: 'pointer',
+        }}
+        to="cast"
+      >
+        Cast
+      </Link>
+      <Link
+        style={{
+          padding: 10,
+
+          fontSize: 20,
+          fontWeight: 500,
+
+          cursor: 'pointer',
+        }}
+        to="reviews"
+      >
+        Reviews
+      </Link>
+      <Suspense fallback={<div>LOADING!!!</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

@@ -11,6 +11,9 @@ export const SearchMovie = ({ onSubmit }) => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
+    if (searchQuery === '') {
+      alert('Enter movie title!');
+    }
     onSubmit(searchQuery);
     setSearchQuery('');
   };

@@ -6,14 +6,25 @@ import { fetchMovieBySearchQuery } from 'service/fetchMovies';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useSearchParams();
 
   const query = searchQuery.get('query') ?? '';
 
   useEffect(() => {
     async function getMoviesBySearch(movieName) {
-      const { results } = await fetchMovieBySearchQuery(movieName);
-      setMovies(results);
+      try {
+        setError(null);
+        setMovies([]);
+        if (query === '') return;
+        const { results } = await fetchMovieBySearchQuery(movieName);
+        if (results.length === 0) {
+          throw new Error('Enter correct movie title!');
+        }
+        setMovies(results);
+      } catch (error) {
+        setError(error.message);
+      }
     }
     getMoviesBySearch(query);
   }, [query]);
@@ -25,7 +36,12 @@ const Movies = () => {
   return (
     <>
       <SearchMovie onSubmit={onSubmit} />
-      <MovieList movies={movies} />
+      {error ? (
+        <p style={{ color: 'orangered' }}>{error}</p>
+      ) : (
+        <MovieList movies={movies} />
+      )}
+      {/* <MovieList movies={movies} /> */}
     </>
   );
 };

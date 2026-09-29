@@ -6,22 +6,30 @@ const Reviews = () => {
   const { movieId } = useParams();
 
   const [reviews, setReviews] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function getMovieReviews(id) {
-      const resp = await fetchMovieReviews(id);
-      setReviews(resp);
+      try {
+        setError(null);
+        const resp = await fetchMovieReviews(id);
+        if (resp.length === 0) {
+          throw new Error("We don't have any reviews for this movie.");
+        }
+        setReviews(resp);
+      } catch (error) {
+        setError(error.message);
+      }
     }
     getMovieReviews(movieId);
   }, [movieId]);
 
   return (
     <>
-      {!reviews.length ? (
-        <p>We don't have any reviews for this movie.</p>
+      {error ? (
+        <p>{error}</p>
       ) : (
         <ul>
-          {' '}
           {reviews.map(review => (
             <li key={review.id}>
               {review.author} - {review.content}

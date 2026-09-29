@@ -1,11 +1,14 @@
 import { MovieList } from 'components/MovieList/MovieList';
 import { SearchMovie } from 'components/SerchMovie/SerchMovie';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { fetchMovieBySearchQuery } from 'service/fetchMovies';
 
 const Movies = () => {
-  const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
+  const [searchQuery, setSearchQuery] = useSearchParams();
+
+  const query = searchQuery.get('query') ?? '';
 
   useEffect(() => {
     async function getMoviesBySearch(movieName) {
@@ -16,7 +19,7 @@ const Movies = () => {
   }, [query]);
 
   const onSubmit = value => {
-    setQuery(value);
+    setSearchQuery(value !== '' ? { query: value } : {});
   };
 
   return (

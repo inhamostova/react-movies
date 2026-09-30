@@ -66,7 +66,7 @@ const MovieDetails = () => {
       >
         Reviews
       </Link>
-      <Suspense fallback={<div>LOADING!!!</div>}>
+      <Suspense key={location.pathname} fallback={<div>LOADING!!!</div>}>
         <Outlet />
       </Suspense>
     </div>

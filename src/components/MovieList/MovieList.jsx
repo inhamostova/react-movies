@@ -17,6 +17,7 @@ export const MovieList = ({ movies }) => {
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt="movie poster"
               width={300}
+              height={450}
             />
             <Title>{movie.title}</Title>
           </Link>

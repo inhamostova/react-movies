@@ -9,6 +9,7 @@ export const Movie = ({
         src={`https://image.tmdb.org/t/p/w500${poster_path}`}
         alt="poster"
         width={300}
+        height={450}
       />
       <div>
         <h2>{title}</h2>

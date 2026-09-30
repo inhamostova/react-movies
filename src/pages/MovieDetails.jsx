@@ -3,6 +3,7 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'service/fetchMovies';
 import { FaArrowLeft } from 'react-icons/fa';
+import { Loader } from 'components/Loader/Loader';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -66,7 +67,7 @@ const MovieDetails = () => {
       >
         Reviews
       </Link>
-      <Suspense key={location.pathname} fallback={<div>LOADING!!!</div>}>
+      <Suspense key={location.pathname} fallback={<Loader />}>
         <Outlet />
       </Suspense>
     </div>

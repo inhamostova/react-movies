@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { Container, Header, Link, Main } from './SharedLayout.styled';
 import { Suspense } from 'react';
+import { Loader } from 'components/Loader/Loader';
 
 const SharedLayout = () => {
   const location = useLocation();
@@ -17,7 +18,7 @@ const SharedLayout = () => {
           {/* <NavLink to="/movies/:movieId">Home</NavLink> */}
         </Header>
         <Main>
-          <Suspense key={baseMoviePath} fallback={<div>Loading...</div>}>
+          <Suspense key={baseMoviePath} fallback={<Loader />}>
             <Outlet />
           </Suspense>
         </Main>
